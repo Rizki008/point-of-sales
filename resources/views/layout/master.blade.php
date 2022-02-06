@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ config('app.name') }} | @yield('title')</title>
     <!-- Tell the browser to be responsive to screen width -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('template/plugins/fontawesome-free/css/all.min.css') }}">
@@ -119,6 +120,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('template/dist/js/demo.js') }}"></script>
 
+    <script src="{{ asset('js/validator.min.js') }}"></script>
     @stack('scripts')
 </body>
 
