@@ -1,12 +1,12 @@
 @extends('layout.master')
 
 @section('title')
-    Dashboard
+    Kategori
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Dashboard v1</li>
+    <li class="breadcrumb-item active">Kategori v1</li>
 @endsection
 
 @section('content')
