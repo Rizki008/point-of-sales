@@ -14,7 +14,9 @@ class AddKodeProdukToProdukTable extends Migration
     public function up()
     {
         Schema::table('produk', function (Blueprint $table) {
-            //
+            $table->string('kode_produk')
+                ->unique()
+                ->after('id_kategori');
         });
     }
 
@@ -26,7 +28,7 @@ class AddKodeProdukToProdukTable extends Migration
     public function down()
     {
         Schema::table('produk', function (Blueprint $table) {
-            //
+            $table->dropColumn('kode_produk');
         });
     }
 }
