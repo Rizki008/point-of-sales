@@ -22,11 +22,14 @@
                             <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')" type="button"
                                 class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
                                 Hapus All</button>
+                            <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')" type="button"
+                                class="btn btn-warning btn-sm"><i class="fa fa-print"></i>
+                                Cetak Barcode</button>
                         </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive">
-                        <form action="" class="form-produk">
+                        <form action="" method="post" class="form-produk">
                             @csrf
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
@@ -197,6 +200,18 @@
             } else {
                 alert('Pilih data yang akan dihapus');
                 return;
+            }
+        }
+
+        function cetakBarcode(url) {
+            if ($('input:checked').length < 1) {
+                alert('Pilih data yang akan di cetak');
+                return;
+            } else if ($('input:checked').length < 3) {
+                alert('pilih minimal 3 data untuk di cetak');
+                return;
+            } else {
+                $('.form-produk').attr('action', url).attr('target', '_blank').submit();
             }
         }
     </script>
