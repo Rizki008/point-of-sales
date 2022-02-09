@@ -1,12 +1,12 @@
 @extends('layout.master')
 
 @section('title')
-    Daftar Produk
+    Data Produk
 @endsection
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Daftar Produk</li>
+    <li class="breadcrumb-item active">Produk v1</li>
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
                                     <th width="5%">No</th>
                                     <th>Kode Produk</th>
                                     <th>Nama Produk</th>
-                                    <th>Kategoori</th>
+                                    <th>Kategori</th>
                                     <th>Merek</th>
                                     <th>Harga Beli</th>
                                     <th>Harga Jual</th>
@@ -52,6 +52,7 @@
 @push('scripts')
     <script>
         let table;
+
         $(function() {
             table = $('.table').DataTable({
                 processing: true,
@@ -117,7 +118,7 @@
 
         function addForm(url) {
             $('#modal-form').modal('show');
-            $('#modal-form .modal-title').text('Tambah Produk');
+            $('#modal-form .modal-title').text('Tambah produk');
 
             $('#modal-form form')[0].reset();
             $('#modal-form form').attr('action', url);
@@ -126,13 +127,13 @@
         }
 
         function editForm(url) {
-            $('#moda-form').modal('show');
-            $('#modal-form .modal-title').text('Edit Produk');
+            $('#modal-form').modal('show');
+            $('#modal-form .modal-title').text('Edit produk');
 
             $('#modal-form form')[0].reset();
             $('#modal-form form').attr('action', url);
             $('#modal-form [name=_method]').val('put');
-            $('#modal-fotm [name=nama_produk]').focus();
+            $('#modal-form [name=nama_produk]').focus();
 
             $.get(url)
                 .done((response) => {
@@ -151,8 +152,9 @@
         }
 
         function deleteData(url) {
-            if (confirm('Apakah Yakin Akan menghapus data Produk?')) {
+            if (confirm('Apakah Yakin Akan Menghapus Data??')) {
                 $.post(url, {
+                        // '_token': '{{ csrf_token() }}'
                         '_token': $('[name=csrf-token]').attr('content'),
                         '_method': 'delete'
                     })
@@ -160,7 +162,7 @@
                         table.ajax.reload();
                     })
                     .fail((errors) => {
-                        alert('Tidak Dapat Menghapus data');
+                        alert('Tidak Dapat Menghapus Data');
                         return;
                     });
             }
