@@ -6,7 +6,7 @@
 
 @section('breadcrumb')
     @parent
-    <li class="breadcrumb-item active">Produk v1</li>
+    <li class="breadcrumb-item active">Produk</li>
 @endsection
 
 @section('content')
@@ -15,26 +15,26 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="btn-group">
-                            <button onclick="addForm('{{ route('produk.store') }}')" type="button"
-                                class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
-                                Add</button>
-                            <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')" type="button"
-                                class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
-                                Hapus All</button>
-                            <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')" type="button"
-                                class="btn btn-warning btn-sm"><i class="fa fa-print"></i>
-                                Cetak Barcode</button>
-                        </div>
+                        <button onclick="addForm('{{ route('produk.store') }}')" type="button"
+                            class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>
+                            Add</button>
+                        <button onclick="deleteSelected('{{ route('produk.delete_selected') }}')" type="button"
+                            class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>
+                            Hapus</button>
+                        <button onclick="cetakBarcode('{{ route('produk.cetak_barcode') }}')" type="button"
+                            class="btn btn-warning btn-sm"><i class="fa fa-print"></i>
+                            Cetak Barcode</button>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive">
                         <form action="" method="post" class="form-produk">
                             @csrf
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th><input type="checkbox" name="select_all" id="select_all"></th>
+                                        <th>
+                                            <input type="checkbox" name="select_all" id="select_all">
+                                        </th>
                                         <th width="5%">No</th>
                                         <th>Kode Produk</th>
                                         <th>Nama Produk</th>
@@ -65,13 +65,17 @@
 
         $(function() {
             table = $('.table').DataTable({
+                responsive: true,
                 processing: true,
+                serverSide: true,
                 autoWidth: false,
                 ajax: {
                     url: '{{ route('produk.data') }}',
                 },
                 columns: [{
-                        data: 'select_all'
+                        data: 'select_all',
+                        searchable: false,
+                        sortable: false
                     },
                     {
                         data: 'DT_RowIndex',
@@ -112,11 +116,7 @@
 
             $('#modal-form').validator().on('submit', function(e) {
                 if (!e.preventDefault()) {
-                    $.ajax({
-                            url: $('#modal-form form').attr('action'),
-                            type: 'post',
-                            data: $('#modal-form form').serialize()
-                        })
+                    $.post($('#modal-form form').attr('action'), $('#modal-form form').serialize())
                         .done((response) => {
                             $('#modal-form').modal('hide');
                             table.ajax.reload();
@@ -127,7 +127,6 @@
                         });
                 }
             });
-
             $('[name=select_all]').on('click', function() {
                 $(':checkbox').prop('checked', this.checked);
             });
@@ -193,22 +192,22 @@
                             table.ajax.reload();
                         })
                         .fail((errors) => {
-                            alert('Tidak Dapat menghapus data');
+                            alert('Tidak Dapat Hapus Data');
                             return;
                         });
                 }
             } else {
-                alert('Pilih data yang akan dihapus');
+                alert('Pilih Data Yang Akan dihapus');
                 return;
             }
         }
 
         function cetakBarcode(url) {
             if ($('input:checked').length < 1) {
-                alert('Pilih data yang akan di cetak');
+                alert('Pilih Data Yang Akan Dicetak');
                 return;
             } else if ($('input:checked').length < 3) {
-                alert('pilih minimal 3 data untuk di cetak');
+                alert('Pilih minimal 3 data untuk dicetak');
                 return;
             } else {
                 $('.form-produk').attr('action', url).attr('target', '_blank').submit();
