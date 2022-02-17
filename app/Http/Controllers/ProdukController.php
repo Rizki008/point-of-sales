@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
-use Illuminate\Http\Request;
 use App\Models\Produk;
-use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 use PDF;
 
 class ProdukController extends Controller
@@ -21,12 +20,14 @@ class ProdukController extends Controller
         return view('produk.index', compact('kategori'));
     }
 
+
     public function data()
     {
         $produk = Produk::leftJoin('kategori', 'kategori.id_kategori', 'produk.id_kategori')
             ->select('produk.*', 'nama_kategori')
-            ->orderBy('kode_produk', 'asc')
+            // ->orderBy('kode_produk', 'desc')
             ->get();
+        // $produk = Produk::orderBy('id_produk', 'desc')->get();
 
         return datatables()
             ->of($produk)
@@ -51,8 +52,8 @@ class ProdukController extends Controller
             ->addColumn('aksi', function ($produk) {
                 return '
                 <div class="btn-grup">
-                    <button onclick="editForm(`' . route('produk.update', $produk->id_produk) . '`)" class="btn btn-sm btn-warning"> <i class="fa fa-edit"></i></button>
-                    <button onclick="deleteData(`' . route('produk.destroy', $produk->id_produk) . '`)" class="btn btn-sm btn-danger"> <i class="fa fa-trash"></i></button>
+                    <button type="button" onclick="editForm(`' . route('produk.update', $produk->id_produk) . '`)" class="btn btn-sm btn-warning"> <i class="fa fa-edit"></i></button>
+                    <button type="button" onclick="deleteData(`' . route('produk.destroy', $produk->id_produk) . '`)" class="btn btn-sm btn-danger"> <i class="fa fa-trash"></i></button>
                 </div>
                 ';
             })
@@ -77,19 +78,17 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
+        $produk = Produk::latest()->first() ?? new Produk();
+        $request['kode_produk'] = 'P-' . tambah_nol_didepan((int)$produk->id_produk + 1, 6);
 
-        $produk = Produk::latest()->first();
-        $request['kode_produk'] = 'P' . tambah_nol_didepan((int)$produk->id_produk + 1, 6);
-
-        //cara simpel menggunakan eloquen
+        //cara simpel
         $produk = Produk::create($request->all());
-
         //cara panjang
         // $produk = new Produk();
         // $produk->nama_produk = $request->nama_produk;
         // $produk->save();
 
-        return response()->json('Data Berhsil Disimpan', 200);
+        return response()->json('Data Berhasil Disimpan', 200);
     }
 
     /**
@@ -126,7 +125,7 @@ class ProdukController extends Controller
     public function update(Request $request, $id)
     {
         $produk = Produk::find($id);
-        //cara simpel menggunakan eloquen
+        // $produk->nama_produk = $request->nama_produk;
         $produk->update($request->all());
 
         return response()->json('Data Berhasil Diupdate', 200);
@@ -148,23 +147,20 @@ class ProdukController extends Controller
 
     public function deleteSelected(Request $request)
     {
-        // return $request;
         foreach ($request->id_produk as $id) {
             $produk = Produk::find($id);
             $produk->delete();
-            // return $request->id_produk[$key];
         }
         return response(null, 204);
     }
-
     public function cetakBarcode(Request $request)
     {
-        // return $request;
         $dataproduk = array();
         foreach ($request->id_produk as $id) {
             $produk = Produk::find($id);
             $dataproduk[] = $produk;
         }
+
         $no = 1;
         $pdf = PDF::loadView('produk.barcode', compact('dataproduk', 'no'));
         $pdf->setPaper('a4', 'potrait');
