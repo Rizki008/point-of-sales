@@ -17,7 +17,7 @@
                         <span class="help-block wirth-errors"></span>
                     </div>
                     <div class="form-group">
-                        <label for="nama_kategori">Kategori</label>
+                        <label for="id_kategori">Kategori</label>
                         <select name="id_kategori" id="id_kategori" class="form-control" required>
                             <option value="">Pilih Kategori</option>
                             @foreach ($kategori as $key => $item)
