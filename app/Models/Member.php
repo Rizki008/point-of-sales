@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
+
     protected $table = 'member';
-    protected $primarykey = 'id_member';
+    protected $primaryKey = 'id_member';
     protected $guarded = [];
 }
