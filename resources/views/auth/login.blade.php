@@ -1,6 +1,5 @@
 @extends('layouts.auth')
 @section('login')
-
     <div class="login-box">
 
         <!-- /.login-logo -->
@@ -14,7 +13,8 @@
                 <form action="{{ route('login') }}" method="post">
                     @csrf
                     <div class="input-group mb-3  @error('email') has-error @enderror">
-                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                        <input type="email" name="email" class="form-control" placeholder="Email" required
+                            value="{{ old('email') }}" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -25,9 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3 @error('password')
-
-                    @enderror">
+                    <div class="input-group mb-3 @error('password')  @enderror">
                         <input type="password" name="password" class="form-control" placeholder="Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
