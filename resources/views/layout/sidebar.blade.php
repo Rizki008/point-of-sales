@@ -116,7 +116,7 @@
 
                 <li class="nav-header">REPORT</li>
                 <li class="nav-item">
-                    <a href="https://adminlte.io/docs/3.0" class="nav-link">
+                    <a href="{{ route('laporan.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-file"></i>
                         <p>Laporan</p>
                     </a>
