@@ -123,9 +123,9 @@
                 </li>
                 <li class="nav-header">SYSTEM</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('user.index') }}" class="nav-link">
                         <i class="fas fa-circle nav-icon"></i>
-                        <p>Profil</p>
+                        <p>User</p>
                     </a>
                 </li>
                 <li class="nav-item">
