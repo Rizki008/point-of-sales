@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ config('app.name') }} | @yield('title')</title>
+    <title>{{ $setting->nama_prusahaan }} | @yield('title')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ url($setting->path_logo) }}" type="image/png">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('template/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->
@@ -95,9 +96,6 @@
     <script src="{{ asset('template/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->
     <script src="{{ asset('template/plugins/sparklines/sparkline.js') }}"></script>
-    <!-- JQVMap -->
-    <script src="{{ asset('template/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('template/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
     <!-- jQuery Knob Chart -->
     <script src="{{ asset('template/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
     <!-- daterangepicker -->
@@ -123,6 +121,13 @@
     <script src="{{ asset('template/dist/js/demo.js') }}"></script>
 
     <script src="{{ asset('js/validator.min.js') }}"></script>
+
+    <script>
+        function preview(selector, temporaryFile, width = 200) {
+            $(selector).empty();
+            $(selector).append(`<img src="${window.URL.createObjectURL(temporaryFile)}" width="${width}">`)
+        }
+    </script>
     @stack('scripts')
 </body>
 
