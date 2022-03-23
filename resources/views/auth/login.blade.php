@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <div class="login-logo">
-                    <a href="{{ url('/') }}"><img src="{{ asset('img/download.png') }}" alt="download.png"
+                    <a href="{{ url('/') }}"><img src="{{ url($setting->path_logo) }}" alt="download.png"
                             width="100"></a>
                 </div>
 
