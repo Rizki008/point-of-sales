@@ -19,7 +19,8 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ url(auth()->user()->foto) }}" class="img-circle img-profil elevation-2" alt="User Image">
+                <img src="{{ url(auth()->user()->foto ?? '') }}" class="img-circle img-profil elevation-2"
+                    alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ auth()->user()->name }}</a>
@@ -31,129 +32,148 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="{{ route('dashboard') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-dailymotion"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">MASTER</li>
-                <li class="nav-item">
-                    <a href="{{ route('kategori.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Kategori
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('produk.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Produk
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('member.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Member
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('supplier.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Supplier
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-header">TRANSAKSI</li>
-                <li class="nav-item">
-                    <a href="{{ route('pengeluaran.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Pengeluaran
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('pembelian.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Pembelian
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('penjualan.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Penjualan
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('transaksi.baru') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Transaksi Baru
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('transaksi.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Transaksi Lama
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                <li class="nav-item">
-                </li>
 
-                <li class="nav-header">REPORT</li>
-                <li class="nav-item">
-                    <a href="{{ route('laporan.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>Laporan</p>
-                    </a>
-                </li>
-                <li class="nav-header">SYSTEM</li>
-                <li class="nav-item">
-                    <a href="{{ route('user.index') }}" class="nav-link">
-                        <i class="fas fa-circle nav-icon"></i>
-                        <p>User</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('setting.index') }}" class="nav-link">
-                        <i class="fas fa-circle nav-icon"></i>
-                        <p>Setting</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('user.profil') }}" class="nav-link">
-                        <i class="fas fa-circle nav-icon"></i>
-                        <p>Profil</p>
-                    </a>
-                </li>
-                <li class="nav-header">LOGOUT</li>
-                <li class="nav-item">
-                    <a href="#" onclick="document.getElementById('logout-form').submit()" class="nav-link">
-                        <i class="nav-icon far fa-circle text-danger"></i>
-                        <p class="text">Logout</p>
-                    </a>
-                </li>
+                @if (auth()->user()->level == 1)
+                    <li class="nav-header">MASTER</li>
+                    <li class="nav-item">
+                        <a href="{{ route('kategori.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-bars"></i>
+                            <p>
+                                Kategori
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('produk.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-cubes"></i>
+                            <p>
+                                Produk
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('member.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-id-card"></i>
+                            <p>
+                                Member
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('supplier.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-person-booth"></i>
+                            <p>
+                                Supplier
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-header">TRANSAKSI</li>
+                    <li class="nav-item">
+                        <a href="{{ route('pengeluaran.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-dolly"></i>
+                            <p>
+                                Pengeluaran
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('pembelian.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-cart-plus"></i>
+                            <p>
+                                Pembelian
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('penjualan.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-cart-arrow-down"></i>
+                            <p>
+                                Penjualan
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('transaksi.baru') }}" class="nav-link">
+                            <i class="nav-icon fas fa-cash-register"></i>
+                            <p>
+                                Transaksi Baru
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('transaksi.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-bookmark"></i>
+                            <p>
+                                Transaksi Lama
+                            </p>
+                        </a>
+                    <li class="nav-item">
+                    </li>
+
+                    <li class="nav-header">REPORT</li>
+                    <li class="nav-item">
+                        <a href="{{ route('laporan.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>Laporan</p>
+                        </a>
+                    </li>
+                    <li class="nav-header">SYSTEM</li>
+                    <li class="nav-item">
+                        <a href="{{ route('user.index') }}" class="nav-link">
+                            <i class="fas fa-person-booth nav-icon"></i>
+                            <p>User</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('setting.index') }}" class="nav-link">
+                            <i class="fas fa-wrench nav-icon"></i>
+                            <p>Setting</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('user.profil') }}" class="nav-link">
+                            <i class="fas fa-person-booth nav-icon"></i>
+                            <p>Profil</p>
+                        </a>
+                    </li>
+                    <li class="nav-header">LOGOUT</li>
+                    <li class="nav-item">
+                        <a href="#" onclick="document.getElementById('logout-form').submit()" class="nav-link">
+                            <i class="nav-icon far fa-circle text-danger"></i>
+                            <p class="text">Logout</p>
+                        </a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a href="{{ route('transaksi.baru') }}" class="nav-link">
+                            <i class="nav-icon fas fa-cash-register"></i>
+                            <p>
+                                Transaksi Baru
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('transaksi.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-bookmark"></i>
+                            <p>
+                                Transaksi Lama
+                            </p>
+                        </a>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('user.profil') }}" class="nav-link">
+                            <i class="fas fa-person-booth nav-icon"></i>
+                            <p>Profil</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
